@@ -1,13 +1,14 @@
 # 서버
 
-import socket as soc
+import socket
 
-sock = soc.socket(soc.AF_INET, soc.SOCK_STREAM) #ipv4, tcp
-sock.bind(('', 9000))
-sock.listen(5)
+s = socket.socket(socket.AF_INET, 
+                  socket.SOCK_STREAM)
+s.bind(('', 9000))
+s.listen(5)
 
 while True:
-    client, addr = sock.accept()
+    client, addr = s.accept()
     print('Connection from ', addr)
     client.send(b'Hello ' + addr[0].encode())
     

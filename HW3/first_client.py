@@ -1,8 +1,9 @@
 # 클라이언트
 
-import socket as soc
+import socket
 
-sock = soc.socket(soc.AF_INET, soc.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, 
+                     socket.SOCK_STREAM)
 addr = ('localhost', 9000)
 sock.connect(addr)
 
