@@ -14,8 +14,9 @@ while True:
     #학생의 이름을 수신한 후 출력
     student_name = client.recv(1024)
     print(student_name.decode())
+    
     #학생의 학번을 전송
-    client.send((20221296).to_bytes(24, 'big'))
+    client.send((20221296).to_bytes(4, 'big'))
     
     client.close()
     
