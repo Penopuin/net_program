@@ -9,43 +9,47 @@ print('connected by', adress)
 
 while True:
     data = conn.recv(1024)
-    if not data:
-        break
-
-    expr = data.decode()
-    print("Received message:", expr)
-
-    # 연산자 찾기
-    for i in range(len(expr)):
-        j = expr[i]
-        if j in ('+', '-', '*', '/'):
-            left = expr[:i].strip()  # 연산자 앞부분 숫자
-            right = expr[i+1:].strip()  # 연산자 뒷부분 숫자
+    data = data.decode()
+    
+    if data == 'q':
+        print('프로그램 종료')
+        conn.close()
+        sock.close()
+        break  # 종료 후 루프를 빠져나옵니다.
+    
+    # 연산자 위치 찾기
+    operator = None
+    for i, char in enumerate(data):
+        if char in ('+', '-', '*', '/'):
+            operator = char
+            left = data[:i].strip()  # 연산자 앞부분 숫자
+            right = data[i+1:].strip()  # 연산자 뒷부분 숫자
             break
     
-    try:
-        # 숫자로 변환
-        left = float(left)
-        right = float(right)
-        
-        # 계산 수행
-        if j == '+':
-            result = left + right
-        elif j == '-':
-            result = left - right
-        elif j == '*':
-            result = left * right
-        elif j == '/':
-            if right != 0:
-                result = left / right
-            else:
-                result = "Division by zero"
-        else:
-            result = "Invalid operator"
-
-    except ValueError:
-        result = "Invalid input"
-
+    # 연산자가 없으면 처리
+    if operator is None:
+        result = "Invalid operator"
+    else:
+        try:
+            # 숫자로 변환
+            left = float(left)
+            right = float(right)
+            
+            # 연산 수행
+            if operator == '+':
+                result = round(left + right)  # 소수점 없이 정수로 반올림
+            elif operator == '-':
+                result = round(left - right)  # 소수점 없이 정수로 반올림
+            elif operator == '*':
+                result = round(left * right)  # 소수점 없이 정수로 반올림
+            elif operator == '/':
+                if right != 0:
+                    result = round(left / right, 1)  # 소수점 1자리로 반올림
+                else:
+                    result = "Division by zero"
+        except ValueError:
+            result = "Invalid input"
+    
     # 결과를 문자열로 변환하여 전송
     conn.send(str(result).encode())
 

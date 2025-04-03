@@ -11,7 +11,7 @@ while True:
     data = input("")
     s.send(data.encode())
     result = s.recv(1024)
-    if not data:
+    if not result:
         break
     print("계산결과: ", result.decode(), '\n')
 
