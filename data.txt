@@ -1,0 +1,2 @@
+Tue Apr  8 19:09:45 2025: Device1: Temp=4, Humid=63, Iilum=149
+Tue Apr  8 19:10:03 2025: Device2: Heartbeat=40, Steps=2596, Cal=2289
