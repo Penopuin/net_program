@@ -3,8 +3,7 @@ name = 'My name is Seoyeon Jun'
 # 문자열의문자수를출력하라.
 print(len(name))
 # 문자열을10번반복한문자열을출력하라.
-for i in range(10):
-    print(name)
+print(name*10)
 # 문자열의첫번째문자를출력하라.
 print(name[0])
 # 문자열에서처음4문자를출력하라.
