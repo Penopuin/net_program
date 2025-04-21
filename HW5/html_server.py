@@ -11,11 +11,9 @@ while True:
     data = c.recv(1024)
     msg = data.decode()
     req = msg.split('\r\n')
-
     if len(req) < 1:
         c.close()
         continue
-
     request_line = req[0]
     print("요청:", request_line)
 
@@ -23,7 +21,6 @@ while True:
     if len(tokens) < 2 or tokens[0] != "GET":
         c.close()
         continue
-
     path = tokens[1]
     filename = path[1:]
 
